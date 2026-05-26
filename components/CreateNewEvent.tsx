@@ -53,9 +53,8 @@ const CreateEventForm = () => {
     resolver: zodResolver(eventSchema),
   });
 
-  const onSubmit = async (data: EventFormData) => {
+  const onSubmit = async (_data: EventFormData) => {
     try {
-      console.log(data);
 
       toast.success("Event created successfully!");
 
@@ -64,6 +63,45 @@ const CreateEventForm = () => {
       toast.error("Something went wrong");
     }
   };
+const inputStyles = `
+  w-full p-3 rounded-xl
+  bg-black/30
+  border border-cyan-500/10
+  focus:outline-none
+  focus:border-cyan-400/40
+  focus:ring-2
+  focus:ring-cyan-500/20
+  transition-all duration-300
+`;
+const selectStyles = `
+  ${inputStyles}
+  bg-[#071018]
+  text-white
+  cursor-pointer
+`;
+
+const sectionStyles = `
+  rounded-2xl
+  border border-cyan-500/20
+  bg-white/[0.02]
+  backdrop-blur-sm
+  p-6
+  space-y-6
+`;
+
+const buttonStyles = `
+  w-full md:w-fit
+  px-8 py-4
+  rounded-xl
+  bg-cyan-500/20
+  border border-cyan-400/20
+  transition-all duration-300
+  hover:scale-105
+  hover:bg-cyan-500/30
+  hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]
+  hover:-translate-y-1
+  cursor-pointer
+`;
 
   return (
     <form
@@ -72,12 +110,7 @@ const CreateEventForm = () => {
     >
 
       {/* BASIC INFO */}
-      <div className="rounded-2xl
-        border border-cyan-500/20
-        bg-white/[0.02]
-        backdrop-blur-sm
-        p-6
-        space-y-6">
+      <div className={sectionStyles}>
         <h2 className="text-2xl font-bold">Basic Info</h2>
 
         <div>
@@ -87,15 +120,7 @@ const CreateEventForm = () => {
             type="text"
             placeholder="Global AI Hackathon 2024"
             {...register("title")}
-            className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300"/>
+            className={inputStyles}/>
 
           {errors.title && (
             <p className="text-red-400 text-sm mt-2">
@@ -111,15 +136,7 @@ const CreateEventForm = () => {
             type="text"
             placeholder="A premier hackathon for developers worldwide."
             {...register("shortDescription")}
-            className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300"/>
+            className={inputStyles}/>
 
           {errors.shortDescription && (
             <p className="text-red-400 text-sm mt-2">
@@ -135,15 +152,7 @@ const CreateEventForm = () => {
             type="text"
             placeholder="https://example.com/image.png"
             {...register("image")}
-            className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300"/>
+            className={inputStyles}/>
 
           {errors.image && (
             <p className="text-red-400 text-sm mt-2">
@@ -154,12 +163,7 @@ const CreateEventForm = () => {
       </div>
 
       {/* EVENT DETAILS */}
-      <div className="rounded-2xl
-        border border-cyan-500/20
-        bg-white/[0.02]
-        backdrop-blur-sm
-        p-6
-        space-y-6">
+      <div className={sectionStyles}>
         <h2 className="text-2xl font-bold">Event Details</h2>
 
         <div>
@@ -169,16 +173,7 @@ const CreateEventForm = () => {
             rows={5}
             placeholder="Describe your event..."
             {...register("overview")}
-            className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300
-            resize-none"/>
+            className={`${inputStyles} resize-none`}/>
 
           {errors.overview && (
             <p className="text-red-400 text-sm mt-2">
@@ -194,15 +189,7 @@ const CreateEventForm = () => {
             <input
               type="date"
               {...register("date")}
-              className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300"/>
+            className={inputStyles}/>
 
             {errors.date && (
               <p className="text-red-400 text-sm mt-2">
@@ -217,16 +204,9 @@ const CreateEventForm = () => {
             <input
               type="time"
               {...register("time")}
-              className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300"/>
-        <p className="text-sm text-gray-500/80 mt-2">Use 12-hour format (e.g. 01:30 PM)</p>
+              className={inputStyles}/>
+
+        <p className="text-sm text-gray-500/80 mt-2">Use your local time format (e.g. 01:30 PM)</p>
             {errors.time && (
               <p className="text-red-400 text-sm mt-2">
                 {errors.time.message}
@@ -243,15 +223,7 @@ const CreateEventForm = () => {
             type="text"
             placeholder="Bangalore, India"
             {...register("location")}
-            className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300"/>
+            className={inputStyles}/>
 
           {errors.location && (
             <p className="text-red-400 text-sm mt-2">
@@ -265,18 +237,7 @@ const CreateEventForm = () => {
 
           <select
                 {...register("mode")}
-                className="
-                w-full p-3 rounded-xl
-                bg-[#071018]
-                text-white
-                border border-cyan-500/10
-                outline-none
-                focus:border-cyan-400/40
-                focus:ring-2
-                focus:ring-cyan-500/20
-                transition-all duration-300
-                focus:outline-none
-                cursor-pointer">
+                className={selectStyles}>
             <option value="" className="bg-[#071018] text-gray-400">
   Select Mode
 </option>
@@ -295,12 +256,7 @@ const CreateEventForm = () => {
       </div>
 
       {/* AUDIENCE & AGENDA */}
-      <div className="rounded-2xl
-        border border-cyan-500/20
-        bg-white/[0.02]
-        backdrop-blur-sm
-        p-6
-        space-y-6">
+      <div className={sectionStyles}>
         <h2 className="text-2xl font-bold">Audience & Agenda</h2>
 
         <div>
@@ -310,15 +266,7 @@ const CreateEventForm = () => {
             type="text"
             placeholder="Developers, AI Researchers..."
             {...register("targetAudience")}
-            className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300"/>
+            className={inputStyles}/>
 
           {errors.targetAudience && (
             <p className="text-red-400 text-sm mt-2">
@@ -334,16 +282,7 @@ const CreateEventForm = () => {
             rows={6}
             placeholder="09:00 - Keynote..."
             {...register("agenda")}
-            className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300
-            resize-none"/>
+            className={`${inputStyles} resize-none`}/>
 
           {errors.agenda && (
             <p className="text-red-400 text-sm mt-2">
@@ -354,12 +293,7 @@ const CreateEventForm = () => {
       </div>
 
       {/* ORGANIZER */}
-      <div className="rounded-2xl
-        border border-cyan-500/20
-        bg-white/[0.02]
-        backdrop-blur-sm
-        p-6
-        space-y-6">
+      <div className={sectionStyles}>
         <h2 className="text-2xl font-bold">Organizer</h2>
 
         <div>
@@ -369,15 +303,7 @@ const CreateEventForm = () => {
             type="text"
             placeholder="Google Cloud"
             {...register("organizer")}
-            className="
-            w-full p-3 rounded-xl
-            bg-black/30
-            border border-cyan-500/10
-            focus:outline-none
-            focus:border-cyan-400/40
-            focus:ring-2
-            focus:ring-cyan-500/20
-            transition-all duration-300"/>
+            className={inputStyles}/>
 
           {errors.organizer && (
             <p className="text-red-400 text-sm mt-2">
@@ -393,15 +319,7 @@ const CreateEventForm = () => {
     type="text"
     placeholder="AI, Cloud, DevOps"
     {...register("tags")}
-    className="
-      w-full p-3 rounded-xl
-      bg-black/30
-      border border-cyan-500/10
-      focus:outline-none
-      focus:border-cyan-400/40
-      focus:ring-2
-      focus:ring-cyan-500/20
-      transition-all duration-300"/>
+    className={inputStyles}/>
 
   <p className="text-sm text-gray-500/80 mt-2">Separate tags with commas</p>
 
@@ -416,18 +334,7 @@ const CreateEventForm = () => {
 
   <button
         type="submit"
-        className="
-          w-full md:w-fit
-          px-8 py-4
-          rounded-xl
-          bg-cyan-500/20
-          border border-cyan-400/20
-          transition-all duration-300
-          hover:scale-105
-          hover:bg-cyan-500/30
-          hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]
-          hover:-translate-y-1
-          cursor-pointer">
+        className={buttonStyles}>
         Create Event
       </button>
       </div>
