@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevEvent Tracker
 
-## Getting Started
+[![Social Summer of Code](https://img.shields.io/badge/SSOC-2026-brightgreen.svg)](https://github.com/niharika-mente/DevEvent_Tracker)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black.svg?style=flat&logo=nextdotjs)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-blue.svg?style=flat&logo=react)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38B2AC.svg?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248.svg?style=flat&logo=mongodb)](https://www.mongodb.com/)
 
-First, run the development server:
+DevEvent Tracker is a high-performance web platform designed to help developers discover, track, and register for tech conferences, hackathons, and local meetups. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This repository is optimized for beginner open-source contributors participating in the Social Summer of Code (SSOC) program. We welcome pull requests of all sizes, from fixing typos to implementing brand-new features.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Event Search and Filters**: Instant, debounced search by event titles, description keywords, and tags. Filter by event mode (Online, Offline, Hybrid).
+* **Registration and Booking**: Book a spot using your developer email address.
+* **Contributor/Booking Dashboard**: View all your registrations in one unified panel, cancel registrations, or export them.
+* **Add to Calendar**: Export event schedules directly to Google Calendar.
+* **Modern UI/UX**: Built with dark mode aesthetics, glassmorphism elements, custom animations, and a responsive layout.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Frontend**: Next.js 16 (App Router), React 19, TypeScript
+- **Styling**: Tailwind CSS v4, Vanilla CSS variables
+- **Database and ODM**: MongoDB Atlas, Mongoose
+- **Image Uploads**: Cloudinary Node SDK (Stream Uploads)
+- **Analytics**: PostHog-js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Onboarding Documentation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+We have prepared detailed guides specifically for new and beginner contributors. Please read these before opening an issue or making a pull request:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. [Contributing Guidelines](docs/CONTRIBUTING.md): Explains the SSOC rules, branch naming patterns, semantic commits, and how to submit a PR.
+2. [Local Setup Guide](docs/SETUP_GUIDE.md): Detailed steps on setting up Node.js, MongoDB Atlas (free tier), Cloudinary credentials, and configuring your `.env.local` file.
+3. [Project Architecture Guide](docs/PROJECT_GUIDE.md): Tour of the directory structures, database schemas, API routes, and a list of easy beginner-friendly tasks to claim.
+
+---
+
+## Quick Start (Local Setup)
+
+To get the app running locally:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/niharika-mente/DevEvent_Tracker.git
+   cd DevEvent_Tracker
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables:**
+   Create a `.env.local` file in the root directory and add:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
+   ```
+   (See the [Setup Guide](docs/SETUP_GUIDE.md) for detailed credentials setup).
+
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+---
+
+## Contributing and Issue Templates
+
+We have set up templates to help you raise clean and structured Issues and Pull Requests:
+- **Bug Report**: Use this when you find a bug or layout issue.
+- **Feature Request**: Suggest a new tool, page, or layout improvement.
+- **Pull Request Template**: Ensure your code meets style guides, lists issue references, and describes verification tests.
+
+*Let's build the community space for developers together.*
