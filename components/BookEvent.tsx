@@ -12,6 +12,12 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!email.trim()) {
+            setError("Please enter your email address.");
+            return;
+        }
+
         setIsSubmitting(true);
         setError(null);
 
@@ -20,7 +26,8 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
 
             if (response.success) {
                 setSubmitted(true);
-                posthog.capture('event_booked', { eventId, slug, email });
+                // Do not send raw email (PII) to analytics.
+                posthog.capture('event_booked', { eventId, slug });
             } else {
                 setError(response.error || "An unexpected error occurred. Please try again.");
                 posthog.captureException('Booking creation failed');
@@ -46,6 +53,7 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
                             onChange={(e) => setEmail(e.target.value)}
                             id="email"
                             placeholder="Enter your email address"
+                            required
                             disabled={isSubmitting} // 1. Freeze input when submitting
                         />
                         {/* 2. Show the red error message under the input if an error occurs */}
