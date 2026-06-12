@@ -30,13 +30,29 @@ export async function createBooking({ eventId, slug, email }: CreateBookingParam
     }
 }
 
-export async function getBookingsByEventId(eventId: string) {
+export async function getBookingsByEventId(eventId: string, page = 1, limit = 50) {
     try {
         await connectToDatabase();
 
-        const bookings = await Booking.find({ eventId });
+        const safePage = Math.max(1, isNaN(Number(page)) ? 1 : Number(page));
+        const safeLimit = Math.min(100, Math.max(1, isNaN(Number(limit)) ? 50 : Number(limit)));
+        const skip = (safePage - 1) * safeLimit;
 
-        return { success: true, bookings: JSON.parse(JSON.stringify(bookings)) };
+        const [bookings, total] = await Promise.all([
+            Booking.find({ eventId }).skip(skip).limit(safeLimit),
+            Booking.countDocuments({ eventId })
+        ]);
+
+        const totalPages = Math.ceil(total / safeLimit);
+
+        return { 
+            success: true, 
+            bookings: JSON.parse(JSON.stringify(bookings)),
+            page: safePage,
+            limit: safeLimit,
+            total,
+            totalPages
+        };
     } catch (error) {
         console.error('Error fetching bookings:', error);
         return { success: false, error: 'Failed to fetch bookings' };
@@ -63,14 +79,17 @@ export async function getBookingsByEmail(email: string, page = 1, limit = 50) {
 
     // Clean string formats to match registry criteria
     const cleanEmail = email.toLowerCase().trim();
-    const skip = (page - 1) * limit;
+    
+    const safePage = Math.max(1, isNaN(Number(page)) ? 1 : Number(page));
+    const safeLimit = Math.min(100, Math.max(1, isNaN(Number(limit)) ? 50 : Number(limit)));
+    const skip = (safePage - 1) * safeLimit;
     
     // Fetch user bookings and populate referenced Event model properties
     const bookings = await Booking.find({ email: cleanEmail })
       .populate('eventId') 
       .sort({ createdAt: -1 })
       .skip(skip)
-      .limit(limit);
+      .limit(safeLimit);
       
     return { success: true, bookings: JSON.parse(JSON.stringify(bookings)) };
   } catch (error) {

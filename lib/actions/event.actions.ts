@@ -30,8 +30,11 @@ export async function getAllEvents(filters?: { query?: string; mode?: string; ta
         query = query.sort({ createdAt: -1 });
     }
 
-    const skip = (page - 1) * limit;
-    const events = await query.skip(skip).limit(limit);
+    const safePage = Math.max(1, isNaN(Number(page)) ? 1 : Number(page));
+    const safeLimit = Math.min(100, Math.max(1, isNaN(Number(limit)) ? 50 : Number(limit)));
+
+    const skip = (safePage - 1) * safeLimit;
+    const events = await query.skip(skip).limit(safeLimit);
     return JSON.parse(JSON.stringify(events));
 
   } catch (error) {
