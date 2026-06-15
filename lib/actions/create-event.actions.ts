@@ -60,12 +60,17 @@ export async function createEvent(data: CreateEventInput)  {
       success: true,
       event: JSON.parse(JSON.stringify(event)),
     };
-  } catch (error) {
+  } catch (error: any) {
   console.error("Create Event Error:", error);
+
+  const message =
+    error?.errors?.[0]?.message ||  // Mongoose validation error
+    error?.message ||               // General JS error
+    "Failed to create event";       // Fallback
 
   return {
     success: false,
-    error: "Failed to create event",
+    error: message,
   };
 }
 }
