@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { captureException } from "@/lib/posthog/helpers";
 
 export default function ErrorPage({
   error,
@@ -12,6 +13,7 @@ export default function ErrorPage({
 }) {
   useEffect(() => {
     console.error(error);
+    captureException(error, { digest: error.digest });
   }, [error]);
 
   return (
